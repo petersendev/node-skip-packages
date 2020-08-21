@@ -49,6 +49,12 @@ steps:
   displayName: yarn pack
   inputs:
     arguments: 'pack'
+
+- task: Yarn@3
+  displayName: yarn publish (master only)
+  condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
+  inputs:
+    arguments: 'publish'
     customEndpoint: 'npm petersendev'
 
 - task: CopyFiles@2
