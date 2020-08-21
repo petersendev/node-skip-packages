@@ -1,0 +1,72 @@
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseNode@1
+  displayName: prepare node
+  inputs:
+    version: '12.x'
+
+- task: UseDotNet@2
+  displayName: prepare dotnet
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+
+- task: DotnetGlobalToolInstaller@0
+  displayName: install nbgv
+  inputs:
+    name: 'nbgv'
+
+- script: nbgv cloud -c -a
+  displayName: set version
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
+
+- task: YarnInstaller@3
+  displayName: prepare yarn
+  inputs:
+    versionSpec: '1.x'
+
+- task: Yarn@3
+  displayName: yarn
+
+- task: Yarn@3
+  displayName: yarn set package version
+  inputs:
+    arguments: 'version --new-version $(NBGV_NpmPackageVersion) --no-git-tag-version'
+
+- task: Yarn@3
+  displayName: yarn build
+  inputs:
+    arguments: 'build'
+
+- task: Yarn@3
+  displayName: yarn pack
+  inputs:
+    arguments: 'pack'
+
+- task: Yarn@3
+  displayName: yarn publish (master only)
+  condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
+  inputs:
+    arguments: 'publish'
+    customEndpoint: 'npm petersendev'
+
+- task: CopyFiles@2
+  displayName: copy package to staging directory
+  inputs:
+    Contents: '**/*.tgz'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: publish build artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+

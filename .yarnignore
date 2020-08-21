@@ -1,0 +1,11 @@
+**/.vscode
+**/src
+**/tmp
+!**/dist
+**/*.tgz
+**/*.ts
+tsconfig.json
+.editorconfig
+version.json
+.yarnignore
+azure-pipelines.yml
