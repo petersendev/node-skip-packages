@@ -1,6 +1,7 @@
 # skip-packages
 
-This packages was created primarily for the ability to separate the installation of packages from a private registry to a later stage to better facilitate docker's caching mechanism when you have to use an authentication which changes on every build.
+This packages was created primarily for the ability to separate the installation of packages from a private registry to a later stage to better facilitate docker's caching mechanism when you have to use an authentication which changes on every build (like the System.AccessToken in Azure Pipelines).
+
 
 ```
 skip-packages
