@@ -4,8 +4,9 @@
 !**/dist
 **/*.tgz
 **/*.ts
-tsconfig.json
 .editorconfig
-version.json
+.npmrc
 .yarnignore
 azure-pipelines.yml
+tsconfig.json
+version.json
