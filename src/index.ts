@@ -64,6 +64,8 @@ async function run(opts: { unskip: boolean })
                 }
             }
         }
+
+        delete packageJson.skipped;
     }
     else
     {
