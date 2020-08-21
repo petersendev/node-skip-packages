@@ -8,3 +8,4 @@ tsconfig.json
 .editorconfig
 version.json
 .yarnignore
+azure-pipelines.yml

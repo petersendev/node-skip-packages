@@ -41,6 +41,11 @@ steps:
     arguments: 'version --new-version $(NBGV_NpmPackageVersion) --no-git-tag-version'
 
 - task: Yarn@3
+  displayName: yarn build
+  inputs:
+    arguments: 'build'
+
+- task: Yarn@3
   displayName: yarn pack
   inputs:
     arguments: 'pack'

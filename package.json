@@ -1,6 +1,6 @@
 {
     "name": "skip-packages",
-    "version": "0.0.2",
+    "version": "0.0.1",
     "bin": "./dist/index.js",
     "license": "MIT",
     "homepage": "https://github.com/petersendev/node-skip-packages#readme",
