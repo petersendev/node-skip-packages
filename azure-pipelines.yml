@@ -44,6 +44,7 @@ steps:
   displayName: yarn pack
   inputs:
     arguments: 'pack'
+    customEndpoint: 'npm petersendev'
 
 - task: CopyFiles@2
   displayName: copy package to staging directory
